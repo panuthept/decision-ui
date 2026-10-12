@@ -14,15 +14,16 @@ vllm serve google/gemma-4-31B-it --host localhost --port 8000
 
 Start a DecisionUI server
 ```bash
-decision-ui serve --base_url http://localhost:8000 --port 8080
+decision-ui serve --base_url http://localhost:8000 --host localhost --port 9000
 ```
 
 Use it via TypeSafeClient
 ```python
 from typesafe_sdk import Choice, TypeSafeClient
 
-with TypeSafeClient(base_url="http://localhost:8080/v1", api_key="EMPTY") as client:
+with TypeSafeClient(base_url="http://localhost:9000", api_key="EMPTY") as client:
     decision = client.system_one(
+        model="google/gemma-4-31B-it",
         state={"document": "I was charged twice. Please fix this ASAP."},
         questions={
             "category": Choice(

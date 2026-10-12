@@ -22,6 +22,10 @@ class VLLMBackend(Backend):
         self._model_client = OpenAI(api_key=self.api_key, base_url=self.base_url)
         self._tokenizer_client = OpenAI(api_key=self.api_key, base_url=self.base_url.replace("/v1", ""))
 
+    @property
+    def available_models(self) -> list[str]:
+        return [model.id for model in self._model_client.models.list().data]
+
     def _tokenize(self, model: str, text: str) -> list[int]:
         enc = self._tokenizer_client.post(
             "/tokenize",

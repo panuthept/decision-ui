@@ -11,6 +11,7 @@ def create_app(config: dict) -> FastAPI:
         base_url=config.get("base_url"),
         api_key=config.get("api_key"),
     )
+    print(f"Available models: {app.state.backend.available_models}")
 
     # ------------------------------------------------------------------
     # Inference routers (hooks fire on these)

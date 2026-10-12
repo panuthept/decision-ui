@@ -35,6 +35,11 @@ class Backend(ABC):
     def __init__(self, prompt_render: Callable = None, **kwargs):
         self.prompt_render = prompt_render or default_prompt_render
 
+    @property
+    @abstractmethod
+    def available_models(self) -> list[str]:
+        """Return a list of available model IDs."""
+
     @abstractmethod
     def score_options(self, model: str, prompt: str, labels: list[str]) -> tuple[list[float], int]:
         """Return one logit per label plus the number of input tokens consumed."""

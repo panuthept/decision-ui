@@ -13,6 +13,10 @@ from decision_ui.backends.base import Backend
 
 
 class MockBackend(Backend):
+    @property
+    def available_models(self) -> list[str]:
+        return ["mock-model"]
+
     def score_options(self, model: str, prompt: str, labels: list[str]) -> tuple[list[float], int]:
         logits: list[float] = []
         for label in labels:
