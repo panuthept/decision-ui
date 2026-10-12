@@ -6,7 +6,6 @@ from decision_ui.server import create_app
 
 serve_commands = typer.Typer()
 
-
 @serve_commands.command("serve")
 def serve_command(
     host: Annotated[str, typer.Option("--host", help="The host to serve on")] = "localhost",

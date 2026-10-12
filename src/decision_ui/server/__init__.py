@@ -1,1 +1,1 @@
-from decision_ui.server import create_app
+from .server import create_app

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from decision_ui.backends.base import Backend
+from .base import Backend
 
 
 def get_backend(name: str = "mock", **kwargs) -> Backend:

@@ -1,4 +1,4 @@
-from decision_ui.core import (
+from .core import (
     Choice,
     Noul,
     Score,
