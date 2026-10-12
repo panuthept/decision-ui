@@ -1,0 +1,1 @@
+from decision_ui.server import create_app
