@@ -15,10 +15,21 @@ from decision_ui.backends.base import Backend
 
 
 class VLLMBackend(Backend):
-    def __init__(self, api_key: str | None = None, base_url: str | None = None, **kwargs):
+    def __init__(
+        self, 
+        api_key: str | None = None, 
+        base_url: str | None = None, 
+        enable_thinking: bool = False,
+        thinking_effort: str = "medium",
+        reasoning_effort: str = "medium",
+        **kwargs
+    ):
         super().__init__(**kwargs)
         self.api_key = api_key
         self.base_url = base_url
+        self.enable_thinking = enable_thinking
+        self.thinking_effort = thinking_effort
+        self.reasoning_effort = reasoning_effort
         self._model_client = OpenAI(api_key=self.api_key, base_url=self.base_url)
         self._tokenizer_client = OpenAI(api_key=self.api_key, base_url=self.base_url.replace("/v1", ""))
 
@@ -62,7 +73,9 @@ class VLLMBackend(Backend):
             top_logprobs=20,
             extra_body={
                 "chat_template_kwargs": {
-                    "enable_thinking": False
+                    "enable_thinking": self.enable_thinking,
+                    "thinking_effort": self.thinking_effort,
+                    "reasoning_effort": self.reasoning_effort
                 }
             }
         )
