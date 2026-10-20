@@ -1,6 +1,6 @@
 # DecisionUI
 
-**Turn any LLM into a decision model.**
+**Turn LLM API into Decision Model API.**
 
 DecisionUI is a lightweight Python server that sits in front of a Chat Completions endpoint (vLLM, SGLang, Ollama, a hosted API, etc.) and exposes it through two decision APIs:
 
@@ -8,13 +8,6 @@ DecisionUI is a lightweight Python server that sits in front of a Chat Completio
 - **OpenAI Decisions API**
 
 Instead of parsing free-form text, you ask structured questions and get back the chosen option along with its probabilities.
-
-## Features
-
-- **Drop-in**: works with any OpenAI-compatible Chat Completions server, with no changes to the model or the server.
-- **Structured decisions**: define choices and criteria, and get back typed results.
-- **Probabilities included**: inspect the model's confidence for every option, not just the top pick.
-- **Two APIs, one server**: SystemOne and OpenAI Decisions endpoints are served side by side.
 
 ## Installation
 
@@ -36,9 +29,7 @@ vllm serve google/gemma-4-31B-it --host localhost --port 8000
 decision-ui serve http://localhost:8000 --host localhost --port 9000
 ```
 
-**3. Make a decision**
-
-## Usage
+**3. Use a LLM as a Decision Model**
 
 ```python
 from typesafe_sdk import Choice, TypeSafeClient
