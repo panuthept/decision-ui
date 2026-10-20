@@ -18,7 +18,7 @@ async def decisions(request: Request):
     for value in body["questions"]:
         key = value["name"]
         if value["type"] == "choice":
-            criteria = {choice["value"]: choice["description"] for choice in value["choices"]}
+            criteria = {choice["value"]: choice.get("description") for choice in value["choices"]}
             question = Choice(instructions=value["instructions"], criteria=criteria)
             questions_types[key] = "choice"
         elif value["type"] == "predicate":
