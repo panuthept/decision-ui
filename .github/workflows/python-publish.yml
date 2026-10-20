@@ -28,8 +28,26 @@ jobs:
 
       - name: Build release distributions
         run: |
-          # NOTE: put your own distribution build steps here.
           python -m pip install build
+          RELEASE_TAG="${GITHUB_REF_NAME}" python - <<'PY'
+          import os
+          import re
+          from pathlib import Path
+
+          from packaging.version import Version
+
+          version = Version(os.environ["RELEASE_TAG"].removeprefix("v"))
+          path = Path("pyproject.toml")
+          content, count = re.subn(
+              r'(?ms)(^\[project\]\s*\n.*?^\s*version\s*=\s*)["\'][^"\']+["\']',
+              rf'\g<1>"{version}"',
+              path.read_text(),
+              count=1,
+          )
+          if count != 1:
+              raise RuntimeError("Could not update the project version in pyproject.toml")
+          path.write_text(content)
+          PY
           python -m build
 
       - name: Upload distributions
