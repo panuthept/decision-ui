@@ -58,11 +58,12 @@ class VLLMBackend(Backend):
         response = self._model_client.chat.completions.create(
             model=model,
             messages=[{"role": "user", "content": prompt}],
+            max_tokens=1,
             logprobs=True,
             top_logprobs=20,
             extra_body={
                 "chat_template_kwargs": {
-                    "enable_thinking": False
+                    "enable_thinking": False,
                 }
             }
         )
